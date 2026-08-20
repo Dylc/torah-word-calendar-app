@@ -1,6 +1,5 @@
 import React from 'react';
 import { Verse } from '../types/verse';
-import { formatGregorianRange } from '../utils/dateFormatter';
 import './VerseDisplay.css';
 
 interface VerseDisplayProps {
@@ -25,11 +24,6 @@ export const VerseDisplay: React.FC<VerseDisplayProps> = ({
   const hebrewText = showNikud
     ? verse.hebrew_text_with_nikud
     : verse.hebrew_text_no_nikud;
-
-  const yearRange = formatGregorianRange(
-    verse.gregorian_date_range.from,
-    verse.gregorian_date_range.to
-  );
 
   return (
     <div className="verse-container">
