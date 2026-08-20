@@ -6,12 +6,14 @@ interface VerseDisplayProps {
   verse: Verse | null;
   showNikud: boolean;
   isLoading: boolean;
+  swipeTransform: { x: number; opacity: number };
 }
 
 export const VerseDisplay: React.FC<VerseDisplayProps> = ({
   verse,
   showNikud,
-  isLoading
+  isLoading,
+  swipeTransform
 }) => {
   if (isLoading) {
     return <div className="verse-loading">טוען...</div>;
@@ -26,7 +28,14 @@ export const VerseDisplay: React.FC<VerseDisplayProps> = ({
     : verse.hebrew_text_no_nikud;
 
   return (
-    <div className="verse-container">
+    <div
+      className="verse-container"
+      style={{
+        transform: `translateX(${swipeTransform.x}px)`,
+        opacity: swipeTransform.opacity,
+        transition: swipeTransform.x === 0 ? 'transform 300ms ease-out, opacity 300ms ease-out' : 'none'
+      }}
+    >
       <p className="verse-text" dir="rtl">
         {hebrewText}
       </p>
@@ -35,4 +44,5 @@ export const VerseDisplay: React.FC<VerseDisplayProps> = ({
       </p>
     </div>
   );
+};
 };

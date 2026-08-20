@@ -37,8 +37,10 @@ function App() {
     onSwipeRight: handlePrevYear
   });
 
+  const { onTouchStart, onTouchMove, onTouchEnd, swipeTransform } = swipeHandlers;
+
   return (
-    <main className="app" {...swipeHandlers}>
+    <main className="app" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
       <button
         className="nikud-toggle"
         onClick={() => setShowNikud(!showNikud)}
@@ -50,6 +52,7 @@ function App() {
         verse={currentVerse}
         showNikud={showNikud}
         isLoading={isLoading}
+        swipeTransform={swipeTransform}
       />
 
       <Navigation

@@ -1,6 +1,5 @@
 .verse-container {
   max-width: 600px;
-  transition: opacity 300ms ease-out, transform 300ms ease-out;
   margin-top: 33vh;
 }
 
