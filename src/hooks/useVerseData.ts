@@ -7,13 +7,19 @@ export const useVerseData = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/torah-verses.json')
-      .then(res => res.json())
+    fetch(`${import.meta.env.BASE_URL}torah-verses.json`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data: TorahData) => {
         setVerses(data.books.Deuteronomy.verses);
         setIsLoading(false);
       })
       .catch(err => {
+        console.error('Error loading verses:', err);
         setError(err.message);
         setIsLoading(false);
       });
