@@ -45,4 +45,3 @@ export const VerseDisplay: React.FC<VerseDisplayProps> = ({
     </div>
   );
 };
-};
