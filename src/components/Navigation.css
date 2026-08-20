@@ -1,50 +1,34 @@
 .navigation {
   display: flex;
-  gap: 24px;
-  align-items: center;
-  margin-top: 24px;
-  justify-content: center;
-}
-
-.nav-button {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: white;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background 200ms ease;
-  display: flex;
+  flex-direction: column;
+  gap: 8px;
   align-items: center;
   justify-content: center;
-}
-
-.nav-button:hover:not(:disabled) {
-  background: var(--accent-hover);
-}
-
-.nav-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+  margin-bottom: 32px;
 }
 
 .current-year {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 500;
-  min-width: 60px;
+  text-align: center;
+}
+
+.swipe-hint {
+  font-size: 14px;
+  color: var(--text-secondary);
   text-align: center;
 }
 
 @media (min-width: 768px) {
-  .nav-button {
-    width: 48px;
-    height: 48px;
-    font-size: 22px;
+  .navigation {
+    margin-bottom: 48px;
   }
 
   .current-year {
-    font-size: 20px;
+    font-size: 28px;
+  }
+
+  .swipe-hint {
+    font-size: 16px;
   }
 }

@@ -10,29 +10,10 @@ interface NavigationProps {
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
-  onPrevYear,
-  onNextYear,
-  currentYear,
-  canGoPrev,
-  canGoNext
+  currentYear
 }) => (
   <div className="navigation">
-    <button
-      onClick={onPrevYear}
-      disabled={!canGoPrev}
-      aria-label="שנה קודמת"
-      className="nav-button"
-    >
-      ←
-    </button>
     <span className="current-year">{currentYear}</span>
-    <button
-      onClick={onNextYear}
-      disabled={!canGoNext}
-      aria-label="שנה הבאה"
-      className="nav-button"
-    >
-      →
-    </button>
+    <span className="swipe-hint">החלק לשינוי שנה</span>
   </div>
 );
