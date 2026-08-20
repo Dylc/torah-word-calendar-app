@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500&display=swap');
+
+:root {
+  --bg-primary: #1A1D23;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B0B0;
+  --accent: #4A90E2;
+  --accent-hover: #5FA3F5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Frank Ruhl Libre', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+
+.nikud-toggle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 200ms ease;
+  z-index: 10;
+}
+
+.nikud-toggle:hover {
+  background: var(--accent-hover);
+}
+
+.nikud-toggle:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .nikud-toggle {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+}
+

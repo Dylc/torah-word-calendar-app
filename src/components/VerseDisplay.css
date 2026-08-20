@@ -1,0 +1,48 @@
+.verse-container {
+  max-width: 600px;
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.verse-text {
+  font-size: 32px;
+  line-height: 1.6;
+  text-align: center;
+  margin: 0 0 8px;
+  font-weight: 400;
+}
+
+.verse-source {
+  font-size: 16px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0 0 4px;
+}
+
+.verse-year {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+.verse-loading,
+.verse-error {
+  font-size: 18px;
+  color: var(--text-secondary);
+  text-align: center;
+  direction: rtl;
+}
+
+@media (min-width: 768px) {
+  .verse-text {
+    font-size: 36px;
+  }
+
+  .verse-source {
+    font-size: 18px;
+  }
+
+  .verse-year {
+    font-size: 16px;
+  }
+}
