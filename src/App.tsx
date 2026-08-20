@@ -104,7 +104,7 @@ function App() {
     pullToRefreshHandlers.onTouchMove(e);
   };
 
-  const combinedTouchEnd = (e: React.TouchEvent) => {
+  const combinedTouchEnd = () => {
     onTouchEnd();
     pullToRefreshHandlers.onTouchEnd();
   };
