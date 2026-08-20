@@ -36,6 +36,8 @@ function App() {
   }, [urlYear, year]);
 
   const currentVerse = findVerseByYear(verses, year);
+  const prevVerse = canGoPrev ? findVerseByYear(verses, year - 1) : null;
+  const nextVerse = canGoNext ? findVerseByYear(verses, year + 1) : null;
   const canGoPrev = year > 1130;
   const canGoNext = year < 2084;
 
@@ -129,12 +131,6 @@ function App() {
         </div>
       )}
 
-      {swipeTransform.showIndicator && swipeTransform.indicatorYear && (
-        <div className={`year-indicator year-indicator-${swipeTransform.indicatorDirection}`}>
-          {swipeTransform.indicatorYear}
-        </div>
-      )}
-
       <button
         className="nikud-toggle"
         onClick={() => setShowNikud(!showNikud)}
@@ -150,12 +146,51 @@ function App() {
         {hapticsEnabled ? '📳' : '🔇'}
       </button>
 
-      <VerseDisplay
-        verse={currentVerse}
-        showNikud={showNikud}
-        isLoading={isLoading}
-        swipeTransform={swipeTransform}
-      />
+      <div className="verses-container">
+        {/* Previous verse - slides in from left */}
+        {swipeTransform.showPrev && prevVerse && (
+          <div
+            className="verse-adjacent verse-prev"
+            style={{
+              transform: `translateX(calc(-100% + ${swipeTransform.x}px))`,
+              opacity: swipeTransform.prevOpacity
+            }}
+          >
+            <VerseDisplay
+              verse={prevVerse}
+              showNikud={showNikud}
+              isLoading={false}
+              swipeTransform={{ x: 0, opacity: 1, showPrev: false, showNext: false, prevOpacity: 0, nextOpacity: 0 }}
+            />
+          </div>
+        )}
+
+        {/* Current verse */}
+        <VerseDisplay
+          verse={currentVerse}
+          showNikud={showNikud}
+          isLoading={isLoading}
+          swipeTransform={swipeTransform}
+        />
+
+        {/* Next verse - slides in from right */}
+        {swipeTransform.showNext && nextVerse && (
+          <div
+            className="verse-adjacent verse-next"
+            style={{
+              transform: `translateX(calc(100% + ${swipeTransform.x}px))`,
+              opacity: swipeTransform.nextOpacity
+            }}
+          >
+            <VerseDisplay
+              verse={nextVerse}
+              showNikud={showNikud}
+              isLoading={false}
+              swipeTransform={{ x: 0, opacity: 1, showPrev: false, showNext: false, prevOpacity: 0, nextOpacity: 0 }}
+            />
+          </div>
+        )}
+      </div>
 
       <Navigation
         onPrevYear={handlePrevYear}

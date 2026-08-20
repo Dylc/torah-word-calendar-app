@@ -43,31 +43,37 @@ export const useSwipe = (options: SwipeOptions) => {
   };
 
   const getSwipeTransform = () => {
-    if (!isSwiping || !touchStart || !touchEnd) return { x: 0, opacity: 1, showIndicator: false, indicatorYear: null, indicatorDirection: null };
+    if (!isSwiping || !touchStart || !touchEnd) {
+      return {
+        x: 0,
+        opacity: 1,
+        showPrev: false,
+        showNext: false,
+        prevOpacity: 0,
+        nextOpacity: 0
+      };
+    }
 
     const distance = touchEnd - touchStart;
     const maxDistance = 150;
     const clampedDistance = Math.max(-maxDistance, Math.min(maxDistance, distance));
-    const opacity = 1 - Math.abs(clampedDistance) / maxDistance * 0.5;
+    const opacity = 1 - Math.abs(clampedDistance) / maxDistance * 0.3;
 
-    // Show year indicator when swiped more than 30px
-    const showIndicator = Math.abs(clampedDistance) > 30;
-    let indicatorYear = null;
-    let indicatorDirection: 'left' | 'right' | null = null;
+    // Calculate adjacent verse visibility
+    const progress = Math.abs(clampedDistance) / maxDistance;
+    const adjacentOpacity = Math.min(progress * 1.2, 0.8);
 
-    if (showIndicator && options.currentYear) {
-      if (clampedDistance > 0 && options.canGoPrev) {
-        // Swiping right - show previous year
-        indicatorYear = options.currentYear - 1;
-        indicatorDirection = 'right';
-      } else if (clampedDistance < 0 && options.canGoNext) {
-        // Swiping left - show next year
-        indicatorYear = options.currentYear + 1;
-        indicatorDirection = 'left';
-      }
-    }
+    const showPrev = clampedDistance > 10 && options.canGoPrev;
+    const showNext = clampedDistance < -10 && options.canGoNext;
 
-    return { x: clampedDistance, opacity, showIndicator, indicatorYear, indicatorDirection };
+    return {
+      x: clampedDistance,
+      opacity,
+      showPrev,
+      showNext,
+      prevOpacity: showPrev ? adjacentOpacity : 0,
+      nextOpacity: showNext ? adjacentOpacity : 0
+    };
   };
 
   return {

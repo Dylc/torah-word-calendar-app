@@ -5,9 +5,10 @@ import './VerseDisplay.css';
 interface SwipeTransform {
   x: number;
   opacity: number;
-  showIndicator: boolean;
-  indicatorYear: number | null;
-  indicatorDirection: 'left' | 'right' | null;
+  showPrev: boolean;
+  showNext: boolean;
+  prevOpacity: number;
+  nextOpacity: number;
 }
 
 interface VerseDisplayProps {
