@@ -112,29 +112,6 @@ body {
   transition: opacity 200ms ease;
 }
 
-.verses-container {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  overflow: visible;
-}
-
-.verse-adjacent {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  pointer-events: none;
-  transition: none;
-}
-
-.verse-prev {
-  right: 100%;
-}
-
-.verse-next {
-  left: 100%;
-}
-
 @media (min-width: 768px) {
   .nikud-toggle {
     font-size: 16px;

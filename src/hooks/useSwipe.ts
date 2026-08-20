@@ -4,9 +4,6 @@ interface SwipeOptions {
   onSwipeLeft: () => void;
   onSwipeRight: () => void;
   minSwipeDistance?: number;
-  canGoPrev?: boolean;
-  canGoNext?: boolean;
-  currentYear?: number;
 }
 
 export const useSwipe = (options: SwipeOptions) => {
@@ -44,36 +41,15 @@ export const useSwipe = (options: SwipeOptions) => {
 
   const getSwipeTransform = () => {
     if (!isSwiping || !touchStart || !touchEnd) {
-      return {
-        x: 0,
-        opacity: 1,
-        showPrev: false,
-        showNext: false,
-        prevOpacity: 0,
-        nextOpacity: 0
-      };
+      return { x: 0, opacity: 1 };
     }
 
     const distance = touchEnd - touchStart;
-    const maxDistance = 150;
+    const maxDistance = 100;
     const clampedDistance = Math.max(-maxDistance, Math.min(maxDistance, distance));
     const opacity = 1 - Math.abs(clampedDistance) / maxDistance * 0.3;
 
-    // Calculate adjacent verse visibility
-    const progress = Math.abs(clampedDistance) / maxDistance;
-    const adjacentOpacity = Math.min(progress * 1.2, 0.8);
-
-    const showPrev = clampedDistance > 10 && (options.canGoPrev ?? false);
-    const showNext = clampedDistance < -10 && (options.canGoNext ?? false);
-
-    return {
-      x: clampedDistance,
-      opacity,
-      showPrev,
-      showNext,
-      prevOpacity: showPrev ? adjacentOpacity : 0,
-      nextOpacity: showNext ? adjacentOpacity : 0
-    };
+    return { x: clampedDistance, opacity };
   };
 
   return {

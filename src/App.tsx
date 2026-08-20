@@ -88,10 +88,7 @@ function App() {
 
   const swipeHandlers = useSwipe({
     onSwipeLeft: handleNextYear,
-    onSwipeRight: handlePrevYear,
-    canGoPrev,
-    canGoNext,
-    currentYear: year
+    onSwipeRight: handlePrevYear
   });
 
   const { onTouchStart, onTouchMove, onTouchEnd, swipeTransform } = swipeHandlers;
@@ -147,51 +144,12 @@ function App() {
         {hapticsEnabled ? '📳' : '🔇'}
       </button>
 
-      <div className="verses-container">
-        {/* Previous verse - slides in from left */}
-        {swipeTransform.showPrev && prevVerse && (
-          <div
-            className="verse-adjacent verse-prev"
-            style={{
-              transform: `translateX(calc(-100% + ${swipeTransform.x}px))`,
-              opacity: swipeTransform.prevOpacity
-            }}
-          >
-            <VerseDisplay
-              verse={prevVerse}
-              showNikud={showNikud}
-              isLoading={false}
-              swipeTransform={{ x: 0, opacity: 1, showPrev: false, showNext: false, prevOpacity: 0, nextOpacity: 0 }}
-            />
-          </div>
-        )}
-
-        {/* Current verse */}
-        <VerseDisplay
-          verse={currentVerse}
-          showNikud={showNikud}
-          isLoading={isLoading}
-          swipeTransform={swipeTransform}
-        />
-
-        {/* Next verse - slides in from right */}
-        {swipeTransform.showNext && nextVerse && (
-          <div
-            className="verse-adjacent verse-next"
-            style={{
-              transform: `translateX(calc(100% + ${swipeTransform.x}px))`,
-              opacity: swipeTransform.nextOpacity
-            }}
-          >
-            <VerseDisplay
-              verse={nextVerse}
-              showNikud={showNikud}
-              isLoading={false}
-              swipeTransform={{ x: 0, opacity: 1, showPrev: false, showNext: false, prevOpacity: 0, nextOpacity: 0 }}
-            />
-          </div>
-        )}
-      </div>
+      <VerseDisplay
+        verse={currentVerse}
+        showNikud={showNikud}
+        isLoading={isLoading}
+        swipeTransform={swipeTransform}
+      />
 
       <Navigation
         onPrevYear={handlePrevYear}

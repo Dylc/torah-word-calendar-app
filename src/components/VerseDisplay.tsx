@@ -2,20 +2,11 @@ import React from 'react';
 import { Verse } from '../types/verse';
 import './VerseDisplay.css';
 
-interface SwipeTransform {
-  x: number;
-  opacity: number;
-  showPrev: boolean;
-  showNext: boolean;
-  prevOpacity: number;
-  nextOpacity: number;
-}
-
 interface VerseDisplayProps {
   verse: Verse | null;
   showNikud: boolean;
   isLoading: boolean;
-  swipeTransform: SwipeTransform;
+  swipeTransform: { x: number; opacity: number };
 }
 
 export const VerseDisplay: React.FC<VerseDisplayProps> = ({
