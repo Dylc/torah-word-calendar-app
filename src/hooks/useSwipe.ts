@@ -4,6 +4,9 @@ interface SwipeOptions {
   onSwipeLeft: () => void;
   onSwipeRight: () => void;
   minSwipeDistance?: number;
+  canGoPrev?: boolean;
+  canGoNext?: boolean;
+  currentYear?: number;
 }
 
 export const useSwipe = (options: SwipeOptions) => {
@@ -40,14 +43,31 @@ export const useSwipe = (options: SwipeOptions) => {
   };
 
   const getSwipeTransform = () => {
-    if (!isSwiping || !touchStart || !touchEnd) return { x: 0, opacity: 1 };
+    if (!isSwiping || !touchStart || !touchEnd) return { x: 0, opacity: 1, showIndicator: false, indicatorYear: null, indicatorDirection: null };
 
     const distance = touchEnd - touchStart;
     const maxDistance = 150;
     const clampedDistance = Math.max(-maxDistance, Math.min(maxDistance, distance));
     const opacity = 1 - Math.abs(clampedDistance) / maxDistance * 0.5;
 
-    return { x: clampedDistance, opacity };
+    // Show year indicator when swiped more than 30px
+    const showIndicator = Math.abs(clampedDistance) > 30;
+    let indicatorYear = null;
+    let indicatorDirection: 'left' | 'right' | null = null;
+
+    if (showIndicator && options.currentYear) {
+      if (clampedDistance > 0 && options.canGoPrev) {
+        // Swiping right - show previous year
+        indicatorYear = options.currentYear - 1;
+        indicatorDirection = 'right';
+      } else if (clampedDistance < 0 && options.canGoNext) {
+        // Swiping left - show next year
+        indicatorYear = options.currentYear + 1;
+        indicatorDirection = 'left';
+      }
+    }
+
+    return { x: clampedDistance, opacity, showIndicator, indicatorYear, indicatorDirection };
   };
 
   return {
