@@ -21,10 +21,6 @@ function App() {
   });
 
   const [showNikud, setShowNikud] = useState(false);
-  const [hapticsEnabled, setHapticsEnabled] = useState(() => {
-    const saved = localStorage.getItem('hapticsEnabled');
-    return saved !== null ? JSON.parse(saved) : true;
-  });
 
   useEffect(() => {
     if (urlYear) {
@@ -32,8 +28,11 @@ function App() {
       if (!isNaN(parsed) && parsed >= 1130 && parsed <= 2084 && parsed !== year) {
         setYear(parsed);
       }
+    } else if (year !== currentYear) {
+      // No URL year but we have a year - add it to URL
+      navigate(`/${year}`, { replace: true });
     }
-  }, [urlYear, year]);
+  }, [urlYear, year, currentYear, navigate]);
 
   const canGoPrev = year > 1130;
   const canGoNext = year < 2084;
@@ -47,16 +46,9 @@ function App() {
       )
     : `${year}`;
 
-  const triggerHaptic = () => {
-    if (hapticsEnabled && 'vibrate' in navigator) {
-      navigator.vibrate(10);
-    }
-  };
-
   const handleYearChange = (newYear: number) => {
     setYear(newYear);
-    navigate(`/${newYear}`, { replace: true });
-    triggerHaptic();
+    navigate(`/${newYear}`);
   };
 
   const handlePrevYear = () => {
@@ -65,12 +57,6 @@ function App() {
 
   const handleNextYear = () => {
     if (canGoNext) handleYearChange(year + 1);
-  };
-
-  const toggleHaptics = () => {
-    const newValue = !hapticsEnabled;
-    setHapticsEnabled(newValue);
-    localStorage.setItem('hapticsEnabled', JSON.stringify(newValue));
   };
 
   const handleRefresh = async () => {
@@ -132,14 +118,6 @@ function App() {
         onClick={() => setShowNikud(!showNikud)}
       >
         {showNikud ? 'ללא ניקוד' : 'עם ניקוד'}
-      </button>
-
-      <button
-        className="haptics-toggle"
-        onClick={toggleHaptics}
-        title={hapticsEnabled ? 'Haptics enabled' : 'Haptics disabled'}
-      >
-        {hapticsEnabled ? '📳' : '🔇'}
       </button>
 
       <VerseDisplay
