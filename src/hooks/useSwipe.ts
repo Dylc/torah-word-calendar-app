@@ -63,8 +63,8 @@ export const useSwipe = (options: SwipeOptions) => {
     const progress = Math.abs(clampedDistance) / maxDistance;
     const adjacentOpacity = Math.min(progress * 1.2, 0.8);
 
-    const showPrev = clampedDistance > 10 && options.canGoPrev;
-    const showNext = clampedDistance < -10 && options.canGoNext;
+    const showPrev = clampedDistance > 10 && (options.canGoPrev ?? false);
+    const showNext = clampedDistance < -10 && (options.canGoNext ?? false);
 
     return {
       x: clampedDistance,

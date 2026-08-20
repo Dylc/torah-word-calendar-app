@@ -35,11 +35,12 @@ function App() {
     }
   }, [urlYear, year]);
 
+  const canGoPrev = year > 1130;
+  const canGoNext = year < 2084;
+
   const currentVerse = findVerseByYear(verses, year);
   const prevVerse = canGoPrev ? findVerseByYear(verses, year - 1) : null;
   const nextVerse = canGoNext ? findVerseByYear(verses, year + 1) : null;
-  const canGoPrev = year > 1130;
-  const canGoNext = year < 2084;
 
   const yearRange = currentVerse
     ? formatGregorianRange(
