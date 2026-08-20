@@ -6,7 +6,7 @@ import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/torah-word-calendar-app">
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/:year" element={<App />} />
