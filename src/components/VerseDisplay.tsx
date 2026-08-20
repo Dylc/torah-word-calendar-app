@@ -37,9 +37,8 @@ export const VerseDisplay: React.FC<VerseDisplayProps> = ({
         {hebrewText}
       </p>
       <p className="verse-source" dir="rtl">
-        {verse.reference}
+        {verse.reference.replace(':', ' : ')}
       </p>
-      <p className="verse-year">{yearRange}</p>
     </div>
   );
 };

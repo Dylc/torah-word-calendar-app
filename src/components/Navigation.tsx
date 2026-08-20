@@ -5,15 +5,15 @@ interface NavigationProps {
   onPrevYear: () => void;
   onNextYear: () => void;
   currentYear: number;
+  yearRange: string;
   canGoPrev: boolean;
   canGoNext: boolean;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
-  currentYear
+  yearRange
 }) => (
   <div className="navigation">
-    <span className="current-year">{currentYear}</span>
-    <span className="swipe-hint">החלק לשינוי שנה</span>
+    <span className="current-year">{yearRange}</span>
   </div>
 );
